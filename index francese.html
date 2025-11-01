@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PlacomaX</title>
+  <style>
+    /* ====== STILI GENERALI ====== */
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background-color: #ffffff;
+      color: #000;
+      line-height: 1.6;
+    }
+
+    h2.major {
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: black;
+    }
+
+    p {
+      color: black;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    /* ====== CONTACTS EN HAUT ====== */
+    .top-contacts {
+      text-align: center;
+      background-color: #f1c40f;
+      color: black;
+      font-weight: 600;
+      padding: 5px 0;
+    }
+
+    /* ====== HEADER ====== */
+    #header {
+      background: #000; /* fond noir */
+      padding: 20px 0;
+    }
+
+    #header .inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      padding: 0 20px;
+    }
+
+    #header .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    #header .logo span:first-child {
+      color: #2980b9; /* bleu pour "PLACO" */
+    }
+
+    #header .logo span:last-child {
+      color: #f1c40f; /* jaune pour "MAX" */
+    }
+
+    #menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      gap: 20px;
+    }
+
+    #menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    #menu a:hover {
+      color: #f1c40f;
+    }
+
+    /* ====== SÉLECTEUR DE LANGUE ====== */
+    .lang-select {
+      position: relative;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropbtn {
+      background-color: #f1c40f;
+      color: #000;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 18px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .dropbtn:hover {
+      background-color: #ffd700;
+      transform: scale(1.05);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0; /* ouvre vers la gauche */
+      background-color: #fff;
+      min-width: 160px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      z-index: 10;
+      margin-top: 5px;
+    }
+
+    .dropdown-content a {
+      color: #000;
+      padding: 10px 14px;
+      text-decoration: none;
+      display: block;
+      font-weight: 600;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .dropdown-content.show {
+      display: block;
+    }
+
+    /* ====== MOBILE ====== */
+    @media (max-width: 768px) {
+      #menu ul {
+        flex-direction: column;
+        gap: 10px;
+        text-align: center;
+      }
+    }
+
+    /* ====== SECTION "NOTRE TRAVAIL" ====== */
+    #lavoro {
+      padding: 60px 20px;
+      background-color: #fdfdfd;
+      text-align: center;
+    }
+
+    .work-slider {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .work-display {
+      max-width: 500px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .work-display img {
+      max-height: 300px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .work-description {
+      padding: 20px;
+    }
+
+    .work-description h3 {
+      margin: 0 0 10px 0;
+      color: black;
+    }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      font-size: 2rem;
+      color: black;
+      padding: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .nav-btn:hover {
+      color: #f1c40f;
+    }
+
+    /* ====== SECTION DEVIS ====== */
+    #preventivo {
+      background-color: white;
+      padding: 60px 20px;
+    }
+
+    .preventivo-header {
+      background-color: #d4af37;
+      padding: 20px;
+      border-radius: 12px 12px 0 0;
+      text-align: center;
+      margin: 0 auto;
+      max-width: 650px;
+    }
+
+    .preventivo-header h2 {
+      color: black;
+      margin: 0;
+    }
+
+    .preventivo-box {
+      background-color: #f9f9f9;
+      border: 2px solid #ccc;
+      border-radius: 0 0 12px 12px;
+      padding: 30px;
+      max-width: 650px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group.half {
+      width: 48%;
+      display: inline-block;
+    }
+
+    label {
+      display: block;
+      color: black;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1.5px solid #999;
+      border-radius: 6px;
+      font-size: 1rem;
+      color: black;
+      background-color: white;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      background-color: black;
+      color: white;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+      display: block;
+      margin: 20px auto 0 auto;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #333;
+    }
+
+    #uploadStatus {
+      color: rgb(2, 1, 1);
+    }
+
+    #successMessage {
+      display: none;
+      color: green;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* ====== FOOTER ====== */
+    footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    footer p {
+      color: white;
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ====== CONTACTS EN HAUT ====== -->
+  <div class="top-contacts">
+    📞 +39 076 558 3512 | ✉ placomax81@gmail.com
+  </div>
+
+  <!-- ====== HEADER ====== -->
+  <header id="header">
+    <div class="inner">
+      <div class="logo">
+        <span>PLACO</span><span>MAX</span>
+      </div>
+
+      <nav id="menu">
+        <ul>
+          <li><a href="#lavoro">Notre Travail</a></li>
+          <li><a href="#preventivo">Devis</a></li>
+          <li><a href="#contatti">Contacts</a></li>
+        </ul>
+      </nav>
+
+      <div class="lang-select">
+        <nav class="dropdown">
+          <button class="dropbtn" id="lang-btn">Langue</button>
+          <div class="dropdown-content" id="lang-menu">
+            <a href="index.html">🇮🇹 Italien</a>
+            <a href="index francese.html">🇫🇷 Français</a>
+            <a href="index inglese.html">🇬🇧 Anglais</a>
+            <a href="index tedesco.html">🇩🇪 Allemand</a>
+          </div>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====== SECTION "NOTRE TRAVAIL" ====== -->
+  <section id="lavoro">
+    <div class="inner">
+      <h2 class="major">Notre Travail</h2>
+      <p>Parcourez nos meilleurs projets et découvrez la qualité de nos réalisations.</p>
+
+      <div class="work-slider">
+        <button class="nav-btn prev-btn">&#10094;</button>
+        <div class="work-display">
+          <img id="workImage" src="images/1.jpg" alt="Projet 1">
+          <div class="work-description">
+            <h3 id="workTitle">Projet 1</h3>
+            <p id="workText">Plafonds en plaques de plâtre modernes avec éclairage intégré.</p>
+          </div>
+        </div>
+        <button class="nav-btn next-btn">&#10095;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== SECTION DEVIS ====== -->
+  <section id="preventivo">
+    <div class="inner text-center">
+      <div class="preventivo-header">
+        <h2>Demandez votre devis</h2>
+      </div>
+
+      <div class="preventivo-box">
+        <p>Remplissez ce formulaire et recevez votre devis personnalisé sous 48 heures.</p>
+
+        <form id="preventivoForm" action="https://formspree.io/f/xeopzrdr" method="POST">
+          <!-- champs formulaire -->
+          <div class="form-group">
+            <label>Nom complet</label>
+            <input type="text" name="name" required placeholder="Mario Rossi">
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="email" required placeholder="mario.rossi@email.it">
+          </div>
+          <div class="form-group">
+            <label>Téléphone</label>
+            <input type="tel" name="phone" required placeholder="+39 333 1234567">
+          </div>
+          <div class="form-group">
+            <label>Lieu du projet</label>
+            <input type="text" name="location" required placeholder="Milan, Italie">
+          </div>
+          <div class="form-group">
+            <label>Type de service</label>
+            <select name="service_type" required>
+              <option value="">Sélectionnez un service</option>
+              <option value="cartongesso">Plâtre</option>
+              <option value="pittura">Peinture</option>
+              <option value="decorazioni">Décorations murales</option>
+              <option value="ristrutturazione">Rénovation complète</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Description du projet</label>
+            <textarea name="project_description" rows="5" placeholder="Décrivez votre projet en détail..."></textarea>
+          </div>
+          <div class="form-group half">
+            <label>Surface approximative</label>
+            <input type="text" name="surface_area" placeholder="ex : 100 m²">
+          </div>
+          <div class="form-group half">
+            <label>Délai souhaité</label>
+            <input type="text" name="timeline" placeholder="ex : sous 2 mois">
+          </div>
+          <div class="form-group">
+            <label>Joindre un fichier</label>
+            <input type="file" id="attachments" multiple>
+          </div>
+          <input type="hidden" name="attachments_urls" id="attachments_urls">
+          <div id="preview"></div>
+          <p id="uploadStatus"></p>
+          <p id="successMessage">Merci ! Votre formulaire a été envoyé. Nous vous répondrons sous 48 heures.</p>
+          <button type="submit">Envoyer la demande</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer id="contatti">
+    <p>© <span id="year"></span> PlacomaX — Tous droits réservés.</p>
+  </footer>
+
+  <!-- ====== SCRIPT ====== -->
+  <script>
+    /* MENU LANGUE AU CLIC */
+    const langBtn = document.getElementById('lang-btn');
+    const langMenu = document.getElementById('lang-menu');
+    langBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      langMenu.classList.toggle('show');
+    });
+    document.addEventListener('click', (e) => {
+      if (!langMenu.contains(e.target) && !langBtn.contains(e.target)) {
+        langMenu.classList.remove('show');
+      }
+    });
+
+    /* SLIDER */
+    const works = [
+      { title: "Projet 1", text: "Plafonds en plaques de plâtre modernes avec éclairage intégré.", img: "images/1.jpg" },
+      { title: "Projet 2", text: "Murs élégants avec finitions décoratives personnalisées.", img: "images/2.jpg" },
+      { title: "Projet 3", text: "Rénovation complète des intérieurs avec style moderne.", img: "images/3.jpg" },
+      { title: "Projet 4", text: "Décorations murales artistiques et peintures de qualité.", img: "images/4.jpg" },
+      { title: "Projet 5", text: "Peinture intérieure avec matériaux de haute qualité.", img: "images/5.jpg" },
+      { title: "Projet 6", text: "Finitions sur mesure pour espaces résidentiels et commerciaux.", img: "images/6.jpg" }
+    ];
+
+    let currentIndex = 0;
+    const imageEl = document.getElementById("workImage");
+    const titleEl = document.getElementById("workTitle");
+    const textEl = document.getElementById("workText");
+
+    function showWork(i) {
+      const w = works[i];
+      imageEl.src = w.img;
+      titleEl.textContent = w.title;
+      textEl.textContent = w.text;
+    }
+
+    document.querySelector(".next-btn").onclick = () => {
+      currentIndex = (currentIndex + 1) % works.length;
+      showWork(currentIndex);
+    };
+    document.querySelector(".prev-btn").onclick = () => {
+      currentIndex = (currentIndex - 1 + works.length) % works.length;
+      showWork(currentIndex);
+    };
+    showWork(currentIndex);
+    setInterval(() => {
+      currentIndex = (currentIndex + 1) % works.length;
+      showWork(currentIndex);
+    }, 5000);
+
+    /* ANNEE AUTOMATIQUE FOOTER */
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
